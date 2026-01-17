@@ -1,0 +1,9 @@
+static int majorityElement(int[] arr) {
+    int count = 0, cand = 0;
+
+    for (int x : arr) {
+        if (count == 0) cand = x;
+        count += (x == cand) ? 1 : -1;
+    }
+    return cand;
+}
