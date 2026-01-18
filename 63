@@ -1,0 +1,39 @@
+
+class Result {
+  // Print the starting time of selected activities in sorted order separated by space
+  static void activitySelection(int[] start, int[] finish) {
+    int n = start.length;
+    if (n == 0) return;
+    // Step 1: Create a list of activities (start, finish)
+    List<Activity> activities = new ArrayList<>();
+    for (int i = 0; i < n; i++) {
+      activities.add(new Activity(start[i], finish[i]));
+    }
+    // Step 2: Sort activities by their finish time
+    Collections.sort(activities, (a, b) -> a.finish - b.finish);
+    // Step 3: Select activities greedily
+    List<Integer> selected = new ArrayList<>();
+    int lastFinish = -1;
+    for (Activity act : activities) {
+      if (act.start >= lastFinish) {
+        selected.add(act.start);
+        lastFinish = act.finish;
+      }
+    }
+    // Step 4: Sort selected starting times as required in output
+    Collections.sort(selected);
+    // Step 5: Print result
+    for (int i = 0; i < selected.size(); i++) {
+      System.out.print(selected.get(i));
+      if (i < selected.size() - 1) System.out.print(" ");
+    }
+  }
+  // Helper class for storing activity info
+  static class Activity {
+    int start, finish;
+    Activity(int s, int f) {
+      this.start = s;
+      this.finish = f;
+    }
+  }
+}
