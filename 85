@@ -1,0 +1,17 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        HashSet<Integer> seen = new HashSet<>();
+        HashSet<Integer> printed = new HashSet<>();
+
+        while (sc.hasNextInt()) {
+            int x = sc.nextInt();
+            if (!seen.add(x) && printed.add(x)) {
+                System.out.println(x);
+            }
+        }
+        sc.close();
+    }
+}
