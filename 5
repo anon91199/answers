@@ -1,0 +1,30 @@
+import java.util.Scanner;
+class Main {
+    // Recursive function to form a number with only even digits
+    public static int evenDigits(int n) {
+        // Handle negative numbers: keep track of the sign
+        if (n < 0) {
+            return -evenDigits(-n);
+        }
+        // Base case: single digit
+        if (n < 10) {
+            return (n % 2 == 0) ? n : 0;
+        }
+        int lastDigit = n % 10;
+        int rest = evenDigits(n / 10);
+        if (lastDigit % 2 == 0) {
+            return rest * 10 + lastDigit;
+        } else {
+            return rest;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt(); // number of test cases
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            System.out.println(evenDigits(n));
+        }
+        sc.close();
+    }
+}
