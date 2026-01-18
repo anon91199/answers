@@ -1,0 +1,7 @@
+class Result {
+    static int isRotation(String str1, String str2) {
+        if (str1.length() != str2.length()) return 0; // NO
+        String temp = str2 + str2;
+        return temp.contains(str1) ? 1 : 0; // 1 = YES, 0 = NO
+    }
+}
