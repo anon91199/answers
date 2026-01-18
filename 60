@@ -1,0 +1,37 @@
+
+class Result {
+  static double fractionalKnapsack(int val[], int weight[], int n, int capacity) {
+    // Create an array of items with value, weight, and ratio
+    Item[] items = new Item[n];
+    for (int i = 0; i < n; i++) {
+      items[i] = new Item(val[i], weight[i]);
+    }
+    // Sort items by value/weight ratio in descending order
+    Arrays.sort(items, (a, b) -> Double.compare(b.ratio, a.ratio));
+    double maxValue = 0.0;
+    int currWeight = 0;
+    for (int i = 0; i < n; i++) {
+      if (currWeight + items[i].weight <= capacity) {
+        // Take the whole item
+        currWeight += items[i].weight;
+        maxValue += items[i].value;
+      } else {
+        // Take fraction of the remaining item
+        int remain = capacity - currWeight;
+        maxValue += items[i].ratio * remain;
+        break; // Knapsack is full
+      }
+    }
+    return Math.round(maxValue * 100.0) / 100.0; // Round to 2 decimal places
+  }
+  // Helper class for storing item details
+  static class Item {
+    int value, weight;
+    double ratio;
+    Item(int value, int weight) {
+      this.value = value;
+      this.weight = weight;
+      this.ratio = (double) value / weight;
+    }
+  }
+}
