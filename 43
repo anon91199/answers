@@ -1,0 +1,51 @@
+/* 
+ *  class Node {
+ *    int data;
+ *    Node leftChild; 
+ *    Node rightChild;
+ *    public Node() {
+ *      data = 0;
+ *    }
+ *    public Node(int d)  {
+ *      data = d;
+ *    }
+ *  }
+ *
+ *  The above class defines a tree node.
+ */
+//class Result {
+  //static Node buildTree(int in[], int post[], int N) {
+    // Write your code here
+  //}
+//}
+class Result {
+  static int postIndex; // global index for postorder array
+  static Map<Integer, Integer> inorderMap; // to store indices of inorder elements
+  static Node buildTree(int in[], int post[], int N) {
+    // Step 1: Map inorder values to their indices for O(1) lookups
+    inorderMap = new HashMap<>();
+    for (int i = 0; i < N; i++) {
+      inorderMap.put(in[i], i);
+    }
+    // Step 2: Start from the last index in postorder
+    postIndex = N - 1;
+    // Step 3: Build the tree recursively
+    return buildTreeHelper(in, post, 0, N - 1);
+  }
+  // Recursive helper function
+  static Node buildTreeHelper(int in[], int post[], int inStart, int inEnd) {
+    // Base case
+    if (inStart > inEnd)
+      return null;
+    // The current root is the last element in postorder
+    int rootVal = post[postIndex--];
+    Node root = new Node(rootVal);
+    // If the node has no children
+    if (inStart == inEnd)
+      return root;
+    int inIndex = inorderMap.get(rootVal);
+    root.rightChild = buildTreeHelper(in, post, inIndex + 1, inEnd);
+    root.leftChild = buildTreeHelper(in, post, inStart, inIndex - 1);
+    return root;
+  }
+}
