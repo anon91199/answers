@@ -1,0 +1,44 @@
+// Java Program for the above approach
+import java.lang.Math;
+
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Maximum Product is " + maxProd(10));
+    }
+
+    /* The main function that returns the max possible product */
+    public static int maxProd(int n) {
+        // edge case
+        if ((n == 2) || (n == 3)) {
+            return n - 1;
+        }
+
+        // how many times we can subtract 3 from n is (n/3)
+        int num_threes = n / 3;
+
+        int num_twos = 0;
+
+        // specifically for handling case where n = 4, 7, 10,
+        // ...
+        if (n % 3 == 1) {
+            num_threes -= 1;
+            num_twos = 2;
+        }
+        // specifically for handling case where n = 5, 8, 11,
+        // ...
+        else if (n % 3 == 2) {
+            num_twos = 1;
+        }
+
+        int res = 1;
+
+        res *= Math.pow(3, num_threes);
+
+        res *= Math.pow(2, num_twos);
+
+        return res;
+    }
+}
+
+// Contributed by adityasharmadev01
