@@ -1,0 +1,30 @@
+
+class Solve {
+  /*
+   * Return all the permutations of the given string in any order,
+   * as they will be sorted at the back-end before printing.
+   */
+  ArrayList<String> permute(String str) {
+    ArrayList<String> result = new ArrayList<>();
+    permuteHelper(str.toCharArray(), 0, str.length() - 1, result);
+    return result;
+  }
+  // Helper function to recursively generate permutations
+  void permuteHelper(char[] arr, int left, int right, ArrayList<String> result) {
+    if (left == right) {
+      result.add(new String(arr));
+      return;
+    }
+    for (int i = left; i <= right; i++) {
+      swap(arr, left, i);                 // Choose
+      permuteHelper(arr, left + 1, right, result); // Explore
+      swap(arr, left, i);                 // Un-choose (backtrack)
+    }
+  }
+  // Utility function to swap two characters
+  void swap(char[] arr, int i, int j) {
+    char temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+}
