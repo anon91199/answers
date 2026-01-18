@@ -1,0 +1,101 @@
+// Java program to flip a binary tree
+// using iterative approach
+
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int x) {
+        data = x;
+        left = right = null;
+    }
+}
+
+class GfG {
+  
+    // Method to flip the binary tree
+    static Node flipBinaryTree(Node root) {
+      
+        // Initializing the pointers to do the 
+      	// swapping and storing states
+        Node curr = root;
+        Node next = null;
+        Node prev = null;
+        Node ptr = null;
+
+        while (curr != null) {
+          
+            // Pointing the next pointer to
+          	// the current next of left
+            next = curr.left;
+
+            // Making the right child of 
+         	// prev as curr left child
+            curr.left = ptr;
+
+            // Storing the right child 
+         	// of curr in ptr
+            ptr = curr.right;
+
+            curr.right = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    // Iterative method to do level order
+   // traversal line by line
+    static void printLevelOrder(Node root) {
+    
+        if (root == null) return;
+
+        // Create an empty queue for level 
+       // order traversal
+        java.util.Queue<Node> q = new java.util.LinkedList<>();
+
+        // Enqueue Root and initialize 
+      	// height
+        q.add(root);
+
+        while (!q.isEmpty()) {
+          
+            // nodeCount (queue size) indicates 
+          	// number of nodes at current level
+            int nodeCount = q.size();
+
+            // Dequeue all nodes of current level 
+          	// and Enqueue all nodes of next level
+            while (nodeCount > 0) {
+                Node node = q.poll();
+                System.out.print(node.data + " ");
+                if (node.left != null)
+                    q.add(node.left);
+                if (node.right != null)
+                    q.add(node.right);
+                nodeCount--;
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+      
+        // Make a binary tree
+        //
+        //  	  1
+        //       / \
+        //      2   3
+        //         / \
+        //        4   5 
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.right.left = new Node(4);
+        root.right.right = new Node(5);
+
+        root = flipBinaryTree(root);
+        printLevelOrder(root);
+    }
+}
