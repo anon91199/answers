@@ -1,0 +1,15 @@
+class Result {
+    static String revWordsOrder(String str) {
+        // Trim to remove extra spaces at the ends
+        str = str.trim();
+        // Split the string into words by one or more spaces
+        String[] words = str.split("\\s+");
+        // Reverse the order of words
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.length - 1; i >= 0; i--) {
+            sb.append(words[i]);
+            if (i != 0) sb.append(" ");
+        }
+        return sb.toString();
+    }
+}
