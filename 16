@@ -1,0 +1,33 @@
+class Result {
+    // Convert integer to string recursively
+    static String itoa(int num) {
+        // Handle negative numbers
+        if (num < 0) {
+            return "-" + itoa(-num);
+        }
+        // Base case
+        if (num < 10) {
+            return "" + (char)('0' + num);
+        }
+        // Recursive case: convert all digits except last
+        return itoa(num / 10) + (char)('0' + (num % 10));
+    }
+    // Convert string to integer recursively
+    static int atoi(String str) {
+        // Handle optional negative sign
+        if (str.length() == 0) return 0;
+        if (str.charAt(0) == '-') {
+            return -atoi(str.substring(1));
+        }
+        return atoiHelper(str, 0);
+    }
+    // Helper function to recursively process each character
+    private static int atoiHelper(String str, int index) {
+        if (index == str.length() - 1) {
+            return str.charAt(index) - '0';
+        }
+        int digit = str.charAt(index) - '0';
+        int rest = atoiHelper(str, index + 1);
+        return digit * (int)Math.pow(10, str.length() - index - 1) + rest;
+    }
+}
