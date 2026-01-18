@@ -1,0 +1,44 @@
+//class Result {
+  //static int getPairsCount(int arr[], int n, int k) {
+    // Write your code here
+  //}
+//}
+class Result {
+  static int getPairsCount(int arr[], int n, int k) {
+    int left = 0, right = n - 1;
+    int count = 0;
+    while (left < right) {
+      int sum = arr[left] + arr[right];
+      if (sum == k) {
+        // If elements are equal
+        if (arr[left] == arr[right]) {
+          int total = right - left + 1;
+          count += (total * (total - 1)) / 2; // nC2 pairs
+          break;
+        }
+        // Count duplicates for left and right
+        int leftCount = 1, rightCount = 1;
+        while (left + 1 < right && arr[left] == arr[left + 1]) {
+          leftCount++;
+          left++;
+        }
+        while (right - 1 > left && arr[right] == arr[right - 1]) {
+          rightCount++;
+          right--;
+        }
+        // Total pairs formed between these duplicates
+        count += leftCount * rightCount;
+        // Move inward
+        left++;
+        right--;
+      }
+      else if (sum < k) {
+        left++;
+      }
+      else {
+        right--;
+      }
+    }
+    return count;
+  }
+}
