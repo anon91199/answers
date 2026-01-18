@@ -1,0 +1,27 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        while (sc.hasNextInt()) {
+            int x = sc.nextInt();
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
+
+        int maxFreq = 0, ans = Integer.MAX_VALUE;
+        for (int k : map.keySet()) {
+            int freq = map.get(k);
+            if (freq > maxFreq || (freq == maxFreq && k < ans)) {
+                maxFreq = freq;
+                ans = k;
+            }
+        }
+
+        if (!map.isEmpty())
+            System.out.println(ans);
+
+        sc.close();
+    }
+}
