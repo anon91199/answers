@@ -1,0 +1,21 @@
+class Result {
+    static int connectCost(int lengths[], int n) {
+        // Create a min-heap
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        // Add all stick lengths to the heap
+        for (int len : lengths) {
+            pq.add(len);
+        }
+        int totalCost = 0;
+        // Keep connecting the two smallest sticks
+        while (pq.size() > 1) {
+            int first = pq.poll();   // smallest
+            int second = pq.poll();  // second smallest
+            int cost = first + second;
+            totalCost += cost;
+            // Add the combined stick back to heap
+            pq.add(cost);
+        }
+        return totalCost;
+    }
+}
