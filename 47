@@ -1,0 +1,24 @@
+/* 
+ *  class Node {
+ *    int data;
+ *    Node left; 
+ *    Node right;
+ *    public Node() {
+ *      data = 0;
+ *    }
+ *    public Node(int d)  {
+ *      data = d;
+ *    }
+ *  }
+ *
+ *  The above class defines a tree node.
+ */
+static Node findMirror(Node root) {
+  // Write your code here
+ if(root==null) return null;
+    Node lefts = findMirror(root.left);
+    Node rights = findMirror(root.right);
+    root.left = rights;
+    root.right = lefts;
+    return root;
+}
