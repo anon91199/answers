@@ -1,0 +1,17 @@
+class Result {
+    static long power(int base, int exp) {
+      // Write your code here
+      // If exponent is negative, return -1 as per problem statement
+      if (exp < 0)
+          return -1;
+      // Base case: anything raised to 0 is 1
+      if (exp == 0)
+          return 1;
+      // Recursive case: exponentiation by squaring (O(log n))
+      long half = power(base, exp / 2);
+      if (exp % 2 == 0)
+          return half * half;
+      else
+          return base * half * half;
+    }
+}
