@@ -1,0 +1,67 @@
+// Java program to find minimum number of dice throws
+// in Snakes and Ladders using DFS 
+import java.util.*;
+
+class GfG {
+
+    // Recursive DFS to explore all paths from current position
+    static void dfs(int currPos, int movesMade, int[] move,
+                    Map<Integer, Integer> visited, int n, int[] res) {
+
+        // Prune paths that are worse than already found or visited
+        if (movesMade >= res[0] || 
+            (visited.containsKey(currPos) && movesMade >= visited.get(currPos))) {
+            return;
+        }
+
+        // Reached the last cell, update result
+        if (currPos == n - 1) {
+            res[0] = movesMade;
+            return;
+        }
+
+        visited.put(currPos, movesMade);
+
+        // Explore all dice throws (1 to 6)
+        for (int i = 1; i <= 6 && currPos + i < n; ++i) {
+            int nextPos = currPos + i;
+
+            // Jump if ladder/snake present
+            int dest = (move[nextPos] != -1) ? move[nextPos] : nextPos;
+
+            dfs(dest, movesMade + 1, move, visited, n, res);
+        }
+    }
+
+    // Function to find the minimum number of dice throws
+    static int getMinDiceThrows(int[] move) {
+        int n = move.length;
+        Map<Integer, Integer> visited = new HashMap<>();
+        int[] res = {Integer.MAX_VALUE};
+
+        // Start DFS from cell 0
+        dfs(0, 0, move, visited, n, res);
+
+        return (res[0] == Integer.MAX_VALUE) ? -1 : res[0];
+    }
+
+    public static void main(String[] args) {
+        int n = 30;
+        int[] moves = new int[n];
+        Arrays.fill(moves, -1);
+
+        // Ladders
+        moves[2] = 21;
+        moves[4] = 7;
+        moves[10] = 25;
+        moves[19] = 28;
+
+        // Snakes
+        moves[26] = 0;
+        moves[20] = 8;
+        moves[16] = 3;
+        moves[18] = 6;
+
+        System.out.println(getMinDiceThrows(moves));
+    }
+}
