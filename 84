@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class MinMaxStream {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        Integer min = null;
+        Integer max = null;
+
+        while (sc.hasNextInt()) {
+            int num = sc.nextInt();
+
+            if (min == null || num < min) {
+                min = num;
+            }
+
+            if (max == null || num > max) {
+                max = num;
+            }
+
+            // Print ONLY the answer
+            System.out.println(min + " " + max);
+        }
+
+        sc.close();
+    }
+}
