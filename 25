@@ -1,0 +1,18 @@
+class Result {
+    static void countFrequency(String s) {
+        int[] freq = new int[26];
+        boolean[] seen = new boolean[26];
+        // Count frequencies
+        for (int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i) - 'a']++;
+        }
+        // Print in order of occurrence
+        for (int i = 0; i < s.length(); i++) {
+            int idx = s.charAt(i) - 'a';
+            if (!seen[idx]) {
+                System.out.print(s.charAt(i) + "" + freq[idx] + " ");
+                seen[idx] = true;
+            }
+        }
+    }
+}
