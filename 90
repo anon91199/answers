@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        while (sc.hasNextInt()) {
+            int x = sc.nextInt();
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
+
+        int count = 0;
+        for (int v : map.values()) {
+            if (v > 1) count++;
+        }
+
+        System.out.println(count);
+        sc.close();
+    }
+}
