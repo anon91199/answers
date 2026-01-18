@@ -1,0 +1,18 @@
+
+import java.util.ArrayList;
+class Solve
+{
+    void generateAllStrings(int n, int i, char currStr[], ArrayList<String> strs){ 
+        // Base case: filled all positions
+        if (i == n) {
+            strs.add(new String(currStr));
+            return;
+        }
+        // Put '0' at position i and recurse
+        currStr[i] = '0';
+        generateAllStrings(n, i + 1, currStr, strs);
+        // Put '1' at position i and recurse
+        currStr[i] = '1';
+        generateAllStrings(n, i + 1, currStr, strs);
+    } 
+}
