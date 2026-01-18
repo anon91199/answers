@@ -1,0 +1,13 @@
+//class Result{ 
+    //static int decimalToBinary(int n){ 
+  //  } 
+//}
+class Result{ 
+    static int decimalToBinary(int n){ 
+        // Base case
+        if (n == 0)
+            return 0;
+        // Recursive case: binary representation
+        return (n % 2) + 10 * decimalToBinary(n / 2);
+    } 
+}
