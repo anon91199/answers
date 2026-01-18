@@ -1,0 +1,47 @@
+//import java.util.Scanner;
+// Other imports go here
+// Do NOT change the class name
+//class Main{
+    //public static void main(String[] args)
+    //{
+        // Write your code here
+  //  }
+//}
+import java.util.Scanner;
+// Other imports go here
+// Do NOT change the class name
+class Main{
+    public static void main(String[] args)
+    {
+        // Write your code here
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt(); // number of test cases
+        for (int t = 0; t < T; t++) {
+            int N = sc.nextInt();
+            int K = sc.nextInt();
+            int[] arr = new int[N];
+            for (int i = 0; i < N; i++) {
+                arr[i] = sc.nextInt();
+            }
+            System.out.println(firstOccurrence(arr, N, K));
+        }
+        sc.close();
+    }
+    // Function to find first occurrence using binary search
+    static int firstOccurrence(int[] arr, int n, int k) {
+        int left = 0, right = n - 1;
+        int result = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] == k) {
+                result = mid;       // potential answer
+                right = mid - 1;    // move left to find earlier occurrence
+            } else if (arr[mid] < k) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return result;
+    }
+}
