@@ -1,0 +1,25 @@
+
+class Result {
+  static int zeroOneKnapsack(int val[], int weight[], int n, int capacity) {
+    // dp[i][w] = maximum value with first i items and capacity w
+    int[][] dp = new int[n + 1][capacity + 1];
+    // Build table dp[][] in bottom-up manner
+    for (int i = 1; i <= n; i++) {
+      for (int w = 1; w <= capacity; w++) {
+        // If weight of current item is less than or equal to current capacity
+        if (weight[i - 1] <= w) {
+          // Max of (including current item) or (excluding current item)
+          dp[i][w] = Math.max(
+            val[i - 1] + dp[i - 1][w - weight[i - 1]],
+            dp[i - 1][w]
+          );
+        } else {
+          // Cannot include the item
+          dp[i][w] = dp[i - 1][w];
+        }
+      }
+    }
+    // The last cell contains the answer
+    return dp[n][capacity];
+  }
+}
