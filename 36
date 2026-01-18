@@ -1,0 +1,34 @@
+
+class PQueueLL
+{
+  public QueueNode front, rear;
+  // Insert a new node based on priority (lower number = higher priority)
+  public void EnQueue(int data, int priority)
+  {
+      QueueNode newNode = new QueueNode(data, priority);
+      // If queue is empty or new node has higher priority than front
+      if (front == null || priority < front.priority) {
+          newNode.next = front;
+          front = newNode;
+      } 
+      else {
+          QueueNode temp = front;
+          // Traverse until correct position is found
+          while (temp.next != null && temp.next.priority <= priority) {
+              temp = temp.next;
+          }
+          newNode.next = temp.next;
+          temp.next = newNode;
+      }
+  }
+  // Remove and return the element with highest priority
+  public int DeQueue()
+  {
+      // If queue is empty
+      if (front == null)
+          return -1;
+      int result = front.data;
+      front = front.next; // Move front pointer to next node
+      return result;
+  }
+}
