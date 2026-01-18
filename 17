@@ -1,0 +1,12 @@
+static String strcatCode(String a, String b) {
+    StringBuilder sb = new StringBuilder();
+    // Append characters from first string
+    for (int i = 0; i < a.length(); i++) {
+        sb.append(a.charAt(i));
+    }
+    // Append characters from second string
+    for (int i = 0; i < b.length(); i++) {
+        sb.append(b.charAt(i));
+    }
+    return sb.toString();
+}
