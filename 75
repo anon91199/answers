@@ -1,0 +1,57 @@
+
+import java.util.*;
+class Result {
+  static int count = 0;  // total number of occurrences
+  static int[] dx = {1, -1, 0, 0};  // down, up, right, left
+  static int[] dy = {0, 0, 1, -1};
+  // Helper function to perform DFS search
+  static void dfs(char[][] board, String word, int i, int j, int index, boolean[][] visited, int m, int n) {
+    // If entire word found
+    if (index == word.length()) {
+      count++;
+      return;
+    }
+    // Explore all 4 possible directions
+    for (int dir = 0; dir < 4; dir++) {
+      int newX = i + dx[dir];
+      int newY = j + dy[dir];
+      if (newX >= 0 && newX < m && newY >= 0 && newY < n &&
+          !visited[newX][newY] && board[newX][newY] == word.charAt(index)) {
+        visited[newX][newY] = true;
+        dfs(board, word, newX, newY, index + 1, visited, m, n);
+        visited[newX][newY] = false; // backtrack
+      }
+    }
+  }
+  // Main function
+  static int countWord(char board[][], String word, int m, int n) {
+    count = 0;
+    boolean[][] visited = new boolean[m][n];
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        if (board[i][j] == word.charAt(0)) {
+          visited[i][j] = true;
+          dfs(board, word, i, j, 1, visited, m, n);
+          visited[i][j] = false;
+        }
+      }
+    }
+    return count;
+  }
+  // Driver for local testing
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int m = sc.nextInt();
+    int n = sc.nextInt();
+    sc.nextLine(); // consume newline
+    char[][] board = new char[m][n];
+    for (int i = 0; i < m; i++) {
+      String row = sc.nextLine().trim();
+      for (int j = 0; j < n; j++) {
+        board[i][j] = row.charAt(j);
+      }
+    }
+    String word = sc.nextLine().trim();
+    System.out.println(countWord(board, word, m, n));
+  }
+}
