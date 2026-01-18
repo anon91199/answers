@@ -1,0 +1,40 @@
+import java.util.*;
+public class Main {
+    public static int rotationCount(int[] arr, int n) {
+        int low = 0, high = n - 1;
+        // If array is already sorted (not rotated)
+        if (arr[low] <= arr[high]) {
+            return -1;
+        }
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int next = (mid + 1) % n;
+            int prev = (mid - 1 + n) % n;
+            // Check if mid is the minimum (pivot)
+            if (arr[mid] <= arr[next] && arr[mid] <= arr[prev]) {
+                return mid; // rotation count = index of minimum element
+            }
+            // Decide which side to go
+            if (arr[mid] <= arr[high]) {
+                high = mid - 1; // pivot in left half
+            } else if (arr[mid] >= arr[low]) {
+                low = mid + 1; // pivot in right half
+            }
+        }
+        return -1;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt(); // number of test cases
+        while (T-- > 0) {
+            int N = sc.nextInt();
+            int[] arr = new int[N];
+            for (int i = 0; i < N; i++) {
+                arr[i] = sc.nextInt();
+            }
+            int result = rotationCount(arr, N);
+            System.out.println(result);
+        }
+        sc.close();
+    }
+}
