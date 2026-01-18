@@ -1,0 +1,33 @@
+//import java.util.Scanner;
+// Other imports go here
+// Do NOT change the class name
+//class Main{
+    //public static void main(String[] args)
+    //{
+        // Write your code here
+  //  }
+//}
+import java.util.Scanner;
+// Other imports go here
+// Do NOT change the class name
+class Main{
+    public static void main(String[] args)
+    {
+        // Write your code here
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        printPrimeFactors(n, 2);
+        sc.close();
+    }
+    // Recursive function to print prime factors
+    static void printPrimeFactors(int n, int divisor) {
+        if (n == 1)
+            return;  // base case
+        if (n % divisor == 0) {
+            System.out.println(divisor);
+            printPrimeFactors(n / divisor, divisor); // continue dividing by same divisor
+        } else {
+            printPrimeFactors(n, divisor + 1); // try next divisor
+        }
+    }
+}
