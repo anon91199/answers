@@ -1,0 +1,39 @@
+/* class Node {
+  int data; // data used as key value
+  Node leftChild;
+  Node rightChild;
+  public Node()  {
+    data=0;  }
+  public Node(int d)  {
+    data=d;  }
+ } Above class is declared for use. */
+//static void inorder(Node root)
+//{
+//}
+//static void preorder(Node root)
+//{
+//}
+//static void postorder(Node root)
+//{
+//}
+static void inorder(Node root) {
+    if (root == null)
+        return;
+    inorder(root.leftChild);       // Visit left subtree
+    System.out.print(root.data + " ");  // Visit root
+    inorder(root.rightChild);      // Visit right subtree
+}
+static void preorder(Node root) {
+    if (root == null)
+        return;
+    System.out.print(root.data + " ");  // Visit root
+    preorder(root.leftChild);           // Visit left subtree
+    preorder(root.rightChild);          // Visit right subtree
+}
+static void postorder(Node root) {
+    if (root == null)
+        return;
+    postorder(root.leftChild);          // Visit left subtree
+    postorder(root.rightChild);         // Visit right subtree
+    System.out.print(root.data + " ");  // Visit root
+}
