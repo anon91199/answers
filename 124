@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+
+class GfG {
+
+    static ArrayList<Integer> nextGreater(int[] arr) {
+        int n = arr.length;
+        int[] res = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            res[i] = -1;
+        }
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < n; j++) {
+                
+                // Checking for next greater element
+                if (arr[i] < arr[(i + j) % n]) {
+                    res[i] = arr[(i + j) % n];
+                    break;
+                }
+            }
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int val : res) {
+            result.add(val);
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {5, 7, 1, 2, 6};
+        ArrayList<Integer> ans = nextGreater(arr);
+
+        for (int i : ans) {
+            System.out.print(i + " ");
+        }
+    }
+}
