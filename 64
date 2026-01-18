@@ -1,0 +1,16 @@
+class Result {
+  static int totalWaysToDistance(int d, int k) {
+    if (d == 0) return 1;
+    if (k == 0) return 0;
+    int[] dp = new int[d + 1];
+    dp[0] = 1; // Base case: 1 way to cover 0 distance
+    for (int i = 1; i <= d; i++) {
+      dp[i] = 0;
+      // For each step size from 1 to k, add possible ways
+      for (int j = 1; j <= k && j <= i; j++) {
+        dp[i] += dp[i - j];
+      }
+    }
+    return dp[d];
+  }
+}
