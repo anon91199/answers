@@ -1,0 +1,47 @@
+// Java program to find maximum
+// profit from rod of size n 
+
+import java.util.Arrays;
+
+class GfG {
+
+    // Find the maximum value obtainable from rod 
+    // of length j.
+    static int cutRodRecur(int i, int j, 
+                           int[] price, int[][] memo) {
+
+        // base case 
+        if (i == 0 || j == 0) return 0;
+
+        // If value is memoized
+        if (memo[i][j] != -1) return memo[i][j];
+
+        // There are two options:
+        // 1. Break it into (i) and (i-j) rods and 
+        // take value of ith rod.
+        int take = 0;
+        if (i <= j) {
+            take = price[i - 1] + cutRodRecur(i, j - i, price, memo);
+        }
+
+        // 2. Skip i'th length rod.
+        int noTake = cutRodRecur(i - 1, j, price, memo);
+
+        return memo[i][j] = Math.max(take, noTake);
+    }
+
+    static int cutRod(int[] price) {
+        int n = price.length;
+        int[][] memo = new int[n + 1][n + 1];
+        for (int[] row : memo) {
+            Arrays.fill(row, -1);
+        }
+
+        return cutRodRecur(n, n, price, memo);
+    }
+
+    public static void main(String[] args) {
+        int[] price = {1, 5, 8, 9, 10, 17, 17, 20};
+        System.out.println(cutRod(price));
+    }
+}
