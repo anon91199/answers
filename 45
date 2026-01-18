@@ -1,0 +1,50 @@
+/* 
+ *  class Node {
+ *    int data;
+ *    Node left; 
+ *    Node right;
+ *    public Node() {
+ *      data = 0;
+ *    }
+ *    public Node(int d)  {
+ *      data = d;
+ *    }
+ *  }
+ *
+ *  The above class defines a tree node.
+ */
+  //static void printAllPaths(Node root) {
+    // Write your code here
+//  }
+static void printAllPaths(Node root) {
+    if (root == null)
+        return;
+    List<Integer> path = new ArrayList<>();
+    int[] totalPaths = new int[1]; // To store total number of paths
+    dfs(root, path, totalPaths);
+    System.out.println(totalPaths[0]);
+}
+// Helper function for DFS traversal
+static void dfs(Node node, List<Integer> path, int[] totalPaths) {
+    if (node == null)
+        return;
+    // Add current node to path
+    path.add(node.data);
+    // If leaf node, print path and its length
+    if (node.left == null && node.right == null) {
+        for (int i = 0; i < path.size(); i++) {
+            System.out.print(path.get(i));
+            if (i < path.size() - 1)
+                System.out.print(" ");
+        }
+        // Length is number of edges = nodes in path - 1
+        System.out.println(" " + (path.size() - 1));
+        totalPaths[0]++;
+    } else {
+        // Recur for left and right subtrees
+        dfs(node.left, path, totalPaths);
+        dfs(node.right, path, totalPaths);
+    }
+    // Backtrack
+    path.remove(path.size() - 1);
+}
