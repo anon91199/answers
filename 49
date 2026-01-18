@@ -1,0 +1,49 @@
+/* 
+ *  class Node {
+ *    int data;
+ *    Node left; 
+ *    Node right;
+ *    public Node() {
+ *      data = 0;
+ *    }
+ *    public Node(int d)  {
+ *      data = d;
+ *    }
+ *  }
+ *
+ *  The above class defines a tree node.
+ */
+//class Result {
+  //static void printTopView(Node root) {
+    // Write your code here
+  //}
+//}
+class Result {
+  static void printTopView(Node root) {
+    if (root == null) return;
+    TreeMap<Integer, Integer> topViewMap = new TreeMap<>();
+    Queue<Pair> queue = new LinkedList<>();
+    queue.add(new Pair(root, 0));
+    while (!queue.isEmpty()) {
+      Pair temp = queue.poll();
+      Node current = temp.node;
+      int hd = temp.hd;
+      if (!topViewMap.containsKey(hd)) {
+        topViewMap.put(hd, current.data);
+      }
+      if (current.left != null) queue.add(new Pair(current.left, hd - 1));
+      if (current.right != null) queue.add(new Pair(current.right, hd + 1));
+    }
+    for (int value : topViewMap.values()) {
+      System.out.print(value + " ");
+    }
+  }
+  static class Pair {
+    Node node;
+    int hd;
+    Pair(Node n, int h) {
+      node = n;
+      hd = h;
+    }
+  }
+}
