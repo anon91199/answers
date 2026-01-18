@@ -1,0 +1,14 @@
+import java.util.HashSet;
+class Result {
+    // Return true if string contains all unique characters, else return false
+    static boolean isUniqueChars(String str) {
+        HashSet<Character> seen = new HashSet<>();
+        for (char ch : str.toCharArray()) {
+            if (seen.contains(ch)) {
+                return false; // Duplicate found
+            }
+            seen.add(ch);
+        }
+        return true; // All characters are unique
+    }
+}
