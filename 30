@@ -1,0 +1,28 @@
+class Result
+{
+    static int isArrayDivisibleInPairs(int a[], int n, int k) {
+        int[] freq = new int[k];
+        // Count remainders
+        for (int i = 0; i < n; i++) {
+            freq[a[i] % k]++;
+        }
+        // Check remainder 0
+        if (freq[0] % 2 != 0) {
+            return 0;
+        }
+        // Check other remainders
+        for (int r = 1; r <= k / 2; r++) {
+            // Special case when r == k-r (only when k is even)
+            if (r == k - r) {
+                if (freq[r] % 2 != 0) {
+                    return 0;
+                }
+            } else {
+                if (freq[r] != freq[k - r]) {
+                    return 0;
+                }
+            }
+        }
+        return 1;
+    }
+}
