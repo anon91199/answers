@@ -1,0 +1,53 @@
+class Result {
+    static String[] ones = {
+        "", "one", "two", "three", "four", "five",
+        "six", "seven", "eight", "nine", "ten",
+        "eleven", "twelve", "thirteen", "fourteen",
+        "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"
+    };
+    static String[] tens = {
+        "", "", "twenty", "thirty", "forty",
+        "fifty", "sixty", "seventy", "eighty", "ninety"
+    };
+    static void intToWord(int n) {
+        if (n == 0) {
+            System.out.print("zero");
+            return;
+        }
+        boolean first = true;
+        if (n >= 100000) {
+            first = printTwoDigits(n / 100000, first);
+            System.out.print(" lakhs");
+            first = false;
+            n %= 100000;
+        }
+        if (n >= 1000) {
+            if (!first) System.out.print(" ");
+            first = printTwoDigits(n / 1000, true);
+            System.out.print(" thousand");
+            first = false;
+            n %= 1000;
+        }
+        if (n >= 100) {
+            if (!first) System.out.print(" ");
+            System.out.print(ones[n / 100] + " hundred");
+            first = false;
+            n %= 100;
+        }
+        if (n > 0) {
+            if (!first) System.out.print(" ");
+            printTwoDigits(n, true);
+        }
+    }
+    static boolean printTwoDigits(int n, boolean first) {
+        if (n < 20) {
+            System.out.print(ones[n]);
+        } else {
+            System.out.print(tens[n / 10]);
+            if (n % 10 != 0) {
+                System.out.print(" " + ones[n % 10]);
+            }
+        }
+        return false;
+    }
+}
