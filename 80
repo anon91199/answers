@@ -1,0 +1,15 @@
+void DFSUtil(int v, boolean visited[]) 
+{ 
+    System.out.print(v+" ");
+    visited[v]=true;
+    for(int neighbor:adjVertices.get(v)){
+        if(!visited[neighbor]){
+            DFSUtil(neighbor,visited);
+        }
+    }
+} 
+void DFS(int v) 
+{ 
+    boolean vis[] = new boolean[adjVertices.size()];
+    DFSUtil(v,vis);
+}
