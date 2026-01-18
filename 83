@@ -1,0 +1,55 @@
+public class RobotMovement {
+
+    static int N = 3, M = 3;
+
+    public static void findPaths(int[][] maze, int i, int j, int[][] path) {
+
+        // If destination is reached
+        if (i == N - 1 && j == M - 1) {
+            path[i][j] = 1;
+            printPath(path);
+            path[i][j] = 0;
+            return;
+        }
+
+        // Check boundaries and blocked cells
+        if (i < 0 || j < 0 || i >= N || j >= M || maze[i][j] == 0) {
+            return;
+        }
+
+        // Mark the cell as part of the path
+        path[i][j] = 1;
+
+        // Move Right
+        findPaths(maze, i, j + 1, path);
+
+        // Move Down
+        findPaths(maze, i + 1, j, path);
+
+        // Backtrack
+        path[i][j] = 0;
+    }
+
+    static void printPath(int[][] path) {
+        for (int[] row : path) {
+            for (int cell : row) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("------");
+    }
+
+    public static void main(String[] args) {
+
+        int[][] maze = {
+                {1, 1, 0},
+                {1, 1, 1},
+                {0, 1, 1}
+        };
+
+        int[][] path = new int[N][M];
+
+        findPaths(maze, 0, 0, path);
+    }
+}
