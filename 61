@@ -1,0 +1,32 @@
+
+class Result {
+  static int intervalScheduling(int[] start, int[] end) {
+    int n = start.length;
+    if (n == 0) return 0;
+    // Create a list of intervals with start and end times
+    Interval[] intervals = new Interval[n];
+    for (int i = 0; i < n; i++) {
+      intervals[i] = new Interval(start[i], end[i]);
+    }
+    // Sort intervals by their finishing time (ascending)
+    Arrays.sort(intervals, (a, b) -> Integer.compare(a.end, b.end));
+    int count = 1; // At least one interval can be selected
+    int lastEnd = intervals[0].end;
+    for (int i = 1; i < n; i++) {
+      // If the current interval starts after or exactly when the last one ends
+      if (intervals[i].start >= lastEnd) {
+        count++;
+        lastEnd = intervals[i].end;
+      }
+    }
+    return count;
+  }
+  // Helper class for interval representation
+  static class Interval {
+    int start, end;
+    Interval(int start, int end) {
+      this.start = start;
+      this.end = end;
+    }
+  }
+}
