@@ -1,0 +1,27 @@
+
+import java.util.HashMap;
+class Result {
+    static String inspectStrings(String[] words) {
+        HashMap<String, Integer> freqMap = new HashMap<>();
+        // Count frequency of each word
+        for (String word : words) {
+            freqMap.put(word, freqMap.getOrDefault(word, 0) + 1);
+        }
+        String winner = "";
+        int maxCount = 0;
+        // Find the word with maximum frequency
+        for (String word : freqMap.keySet()) {
+            int count = freqMap.get(word);
+            if (count > maxCount) {
+                maxCount = count;
+                winner = word;
+            } else if (count == maxCount) {
+                // Tie-breaker: choose the alphabetically later string
+                if (word.compareTo(winner) > 0) {
+                    winner = word;
+                }
+            }
+        }
+        return winner;
+    }
+}
