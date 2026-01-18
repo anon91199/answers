@@ -1,0 +1,30 @@
+/* 
+ *  class Node {
+ *    int data;
+ *    Node left; 
+ *    Node right;
+ *    public Node() {
+ *      data = 0;
+ *    }
+ *    public Node(int d)  {
+ *      data = d;
+ *    }
+ *  }
+ *
+ *  The above class defines a tree node.
+ */
+//class Result {
+  //static int isBinarySearchTree(Node root) {
+    // Write your code here
+  //}
+//}
+class Result {
+    static boolean isBST(Node root,int min,int max){
+        if(root==null) return true;
+        if(root.data<min || root.data> max) return false;
+        return isBST(root.left,min,root.data) && isBST(root.right,root.data,max);
+    }
+  static int isBinarySearchTree(Node root) {
+      return isBST(root,Integer.MIN_VALUE,Integer.MAX_VALUE) ? 1 : 0;
+  }
+}
