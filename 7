@@ -1,0 +1,17 @@
+//class Result
+//{
+  //static int gcd(int i, int j)
+  //{
+  //}
+//}
+class Result
+{
+  static int gcd(int i, int j)
+  {
+    // Base case: when one number becomes 0
+    if (j == 0)
+      return i;
+    // Recursive case: gcd(a, b) = gcd(b, a % b)
+    return gcd(j, i % j);
+  }
+}
