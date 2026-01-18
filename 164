@@ -1,0 +1,34 @@
+/*package whatever //do not write package name here */
+import java.io.*;
+
+class GFG {
+
+  // function to check if all the bits
+  // are set or not in the binary
+  // representation of 'n'
+  public static boolean allBitsAreSet(long n)
+  {
+
+    // if true, then all bits are set
+    if (((n + 1) & n) == 0)
+      return true;
+
+    // else all bits are not set
+    return false;
+  }
+
+  // Function to check if a number
+  // has bits in alternate pattern
+  public static boolean bitsAreInAltOrder(long n)
+  {
+    long num = n ^ (n >> 1);
+
+    // To check if all bits are set in 'num'
+    return allBitsAreSet(num);
+  }
+  public static void main (String[] args) {
+
+  }
+}
+
+// This code is contributed by akashish__
