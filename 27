@@ -1,0 +1,19 @@
+class Result {
+    static int maxFrequency(int A[], int n) {
+        int[] freq = new int[1001]; // because 0 <= A[i] <= 1000
+        // Count frequencies
+        for (int i = 0; i < n; i++) {
+            freq[A[i]]++;
+        }
+        int maxFreq = 0;
+        int answer = Integer.MAX_VALUE;
+        // Find smallest number with maximum frequency
+        for (int i = 0; i <= 1000; i++) {
+            if (freq[i] > maxFreq) {
+                maxFreq = freq[i];
+                answer = i;
+            }
+        }
+        return answer;
+    }
+}
