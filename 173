@@ -1,0 +1,35 @@
+import java.util.*;
+ 
+class Element {
+	int val, row, col;
+	Element(int v, int r, int c) { val = v; row = r; col = c; }
+}
+ 
+public class Main {
+	public static void main(String[] args) {
+    	Scanner sc = new Scanner(System.in);
+    	int K = sc.nextInt(), N = sc.nextInt();
+    	int[][] arr = new int[K][N];
+    	for (int i = 0; i < K; i++)
+        	for (int j = 0; j < N; j++)
+            	arr[i][j] = sc.nextInt();
+ 
+        PriorityQueue<Element> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
+    	for (int i = 0; i < K; i++) pq.add(new Element(arr[i][0], i, 0));
+ 
+    	List<Integer> result = new ArrayList<>();
+ 
+    	while (!pq.isEmpty()) {
+        	Element e = pq.poll();
+        	result.add(e.val);
+        	if (e.col + 1 < N)
+            	pq.add(new Element(arr[e.row][e.col + 1], e.row, e.col + 1));
+    	}
+ 
+    	for (int x : result)
+        	System.out.print(x + " ");
+    	System.out.println();
+    	sc.close();
+	}
+}
+ 
