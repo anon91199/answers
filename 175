@@ -1,0 +1,58 @@
+import java.util.*;
+public class FindSpecialElement
+{
+    // Method to find element such that left < element < right
+    public static int findElement(int[] arr, int n)
+    {
+        if (n < 3)
+            return -1; // Need at least 3 elements
+        int[] leftMax = new int[n];
+        int[] rightMin = new int[n];
+ 
+        // Fill leftMax array
+        leftMax[0] = Integer.MIN_VALUE;
+        for (int i = 1; i < n; i++)
+        {
+            leftMax[i] = Math.max(leftMax[i - 1], arr[i - 1]);
+        }
+ 
+        // Fill rightMin array
+        rightMin[n - 1] = Integer.MAX_VALUE;
+        for (int i = n - 2; i >= 0; i--)
+        {
+            rightMin[i] = Math.min(rightMin[i + 1], arr[i + 1]);
+        }
+ 
+        // Find element that satisfies condition
+        for (int i = 1; i < n - 1; i++)
+        {
+            if (arr[i] > leftMax[i] && arr[i] < rightMin[i])
+            {
+                return arr[i];
+            }
+        }
+        return -1; // No element found
+    }
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        // Input array size
+        //System.out.print("Enter size of array: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        // Input array elements
+        //System.out.println("Enter array elements:");
+        for (int i = 0; i < n; i++)
+        {
+            arr[i] = sc.nextInt();
+        }
+        int result = findElement(arr, n);
+        //if (result != -1)
+            //System.out.println("Element found: " + result);
+            System.out.println(result);
+       // else
+            //System.out.println("-1");
+        sc.close();
+    }
+}
+ 
