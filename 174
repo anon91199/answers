@@ -1,0 +1,41 @@
+import java.util.*;
+ 
+class EmergencyResponseSystem
+{
+    public static List<String> manageEmergencies(List<String> commands)
+    {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        List<String> result = new ArrayList<>();
+ 
+        for (String cmd : commands)
+        {
+            String[] parts = cmd.split(" ");
+            String operation = parts[0];
+ 
+            if (operation.equals("REPORT"))
+            {
+                int priority = Integer.parseInt(parts[1]);
+                pq.add(priority);
+            }
+            else if (operation.equals("HANDLE"))
+            {
+                if (pq.isEmpty()) {
+                    result.add("No emergencies");
+                } else {
+                    result.add(String.valueOf(pq.poll()));
+                }
+            }
+            else if (operation.equals("NEXT"))
+            {
+                if (pq.isEmpty())
+                {
+                    result.add("No emergencies");
+                }
+                else
+                {
+                    result.add(String.valueOf(pq.peek()));
+                }
+            }
+        }
+        return result;
+    }
