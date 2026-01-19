@@ -1,0 +1,55 @@
+import java.util.*;
+public class CourseOrdering {
+    public static List<Integer> findOrder(int n, List<int[]> edges) {
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
+       
+        int[] indegree = new int[n];
+        for (int[] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            indegree[edge[1]]++;
+        }
+ 
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if (indegree[i] == 0) q.offer(i);
+        }
+ 
+        List<Integer> result = new ArrayList<>();
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            result.add(curr);
+            for (int next : graph.get(curr)) {
+                indegree[next]--;
+                if (indegree[next] == 0) q.offer(next);
+            }
+        }
+ 
+        if (result.size() != n)
+            return new ArrayList<>(); // cycle detected
+        return result;
+    }
+ 
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt();
+        List<int[]> edges = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            int a = sc.nextInt(), b = sc.nextInt();
+            edges.add(new int[]{a, b});
+        }
+ 
+        List<Integer> order = findOrder(n, edges);
+        if (order.isEmpty()) {
+            System.out.println("No valid ordering possible");
+        } else {
+            for (int i = 0; i < order.size(); i++) {
+                System.out.print(order.get(i));
+                if (i < order.size() - 1) System.out.print(" ");
+            }
+        }
+    }
+}
+ 
+ 
+ 
