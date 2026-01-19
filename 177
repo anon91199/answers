@@ -1,0 +1,76 @@
+import java.util.*;
+public class CriticalCables
+{
+    static int time = 0; // Global time counter for discovery time
+    static List<List<Integer>> graph;
+    static int[] disc, low;
+    static boolean[] visited;
+    static List<int[]> bridges;
+ 
+    // DFS function to find bridges
+    static void dfs(int u, int parent) {
+        visited[u] = true;
+        disc[u] = low[u] = ++time;
+ 
+        for (int v : graph.get(u)) {
+            if (v == parent) continue; // Ignore the edge we came from
+ 
+            if (!visited[v]) {
+                dfs(v, u);
+                low[u] = Math.min(low[u], low[v]);
+ 
+                // If low[v] > disc[u], (u, v) is a bridge
+                if (low[v] > disc[u]) {
+                    bridges.add(new int[]{u, v});
+                }
+            } else {
+                // Back edge found
+                low[u] = Math.min(low[u], disc[v]);
+            }
+        }
+    }
+ 
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+ 
+        // Input: number of nodes and edges
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+ 
+        graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
+ 
+        // Reading undirected edges
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+ 
+        disc = new int[n];
+        low = new int[n];
+        visited = new boolean[n];
+        bridges = new ArrayList<>();
+ 
+        // Run DFS from each unvisited node (to handle disconnected graphs)
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                dfs(i, -1);
+            }
+        }
+ 
+        // Output
+        if (bridges.isEmpty()) {
+            System.out.println("No Bridges Found");
+        } else {
+            for (int[] b : bridges) {
+                System.out.println(b[0] + " - " + b[1]);
+            }
+        }
+ 
+        sc.close();
+    }
+}
