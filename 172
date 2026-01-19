@@ -1,0 +1,48 @@
+import java.util.*;
+ 
+class Pair {
+	int node, weight;
+	Pair(int n, int w) { node = n; weight = w; }
+}
+ 
+public class Main {
+	public static void main(String[] args) {
+    	Scanner sc = new Scanner(System.in);
+    	int V = sc.nextInt(), E = sc.nextInt();
+        List<List<Pair>> adj = new ArrayList<>();
+    	for (int i = 0; i < V; i++) adj.add(new ArrayList<>());
+ 
+    	for (int i = 0; i < E; i++) {
+        	int u = sc.nextInt(), v = sc.nextInt(), w = sc.nextInt();
+        	adj.get(u).add(new Pair(v, w));
+    	}
+    	int S = sc.nextInt();
+ 
+    	int[] dist = new int[V];
+    	Arrays.fill(dist, Integer.MAX_VALUE);
+    	dist[S] = 0;
+ 
+        PriorityQueue<Pair> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a.weight));
+    	pq.add(new Pair(S, 0));
+ 
+    	while (!pq.isEmpty()) {
+        	Pair p = pq.poll();
+        	int u = p.node, d = p.weight;
+        	if (d > dist[u]) continue;
+ 
+        	for (Pair e : adj.get(u)) {
+            	int v = e.node, w = e.weight;
+            	if (dist[u] + w < dist[v]) {
+                	dist[v] = dist[u] + w;
+                	pq.add(new Pair(v, dist[v]));
+            	}
+        	}
+    	}
+ 
+    	for (int i = 0; i < V; i++) {
+            System.out.print((dist[i] == Integer.MAX_VALUE ? -1 : dist[i]) + " ");
+    	}
+    	System.out.println();
+    	sc.close();
+	}
+}
