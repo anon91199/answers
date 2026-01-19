@@ -1,0 +1,53 @@
+import java.util.*;
+public class MaximizeProjectProfit
+{
+    static class Project
+    {
+        int deadline, profit;
+        Project(int d, int p)
+        {
+            deadline = d;
+            profit = p;
+        }
+    }
+    public static int maxProfit(Project[] arr, int n)
+    {
+        // Find the maximum deadline
+        int maxDeadline = 0;
+        for (Project p : arr)
+            maxDeadline = Math.max(maxDeadline, p.deadline);
+        // Sort projects by profit in descending order
+        Arrays.sort(arr, (a, b) -> b.profit - a.profit);
+        // Create a slot array to track which days are booked
+        boolean[] slot = new boolean[maxDeadline + 1];
+        int totalProfit = 0;
+        // Try to schedule each project
+        for (Project p : arr) {
+            for (int j = p.deadline; j > 0; j--)
+            {
+                if (!slot[j])
+                {
+                    slot[j] = true;
+                    totalProfit += p.profit;
+                    break;
+                }
+            }
+        }
+        return totalProfit;
+    }
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Project[] arr = new Project[n];
+        for (int i = 0; i < n; i++)
+        {
+            int d = sc.nextInt();
+            int p = sc.nextInt();
+            arr[i] = new Project(d, p);
+        }
+        //System.out.println("Maximum Total Profit: " + maxProfit(arr, n));
+        System.out.println(maxProfit(arr, n));
+    }
+}
+ 
